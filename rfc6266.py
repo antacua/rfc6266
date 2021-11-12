@@ -13,8 +13,8 @@ build_header handles the sender side.
 
 from lepl import *
 from collections import namedtuple
-from urllib import quote, unquote
-from urlparse import urlsplit
+from urllib.parse import quote, unquote, urlsplit  # :U:
+# from urlparse import urlsplit  # :U:
 from string import hexdigits, ascii_letters, digits
 
 import logging
@@ -270,7 +270,7 @@ def CaseInsensitiveLiteral(lit):
 
 # RFC 2616
 separator_chars = "()<>@,;:\\\"/[]?={} \t"
-ctl_chars = ''.join(chr(i) for i in xrange(32)) + chr(127)
+ctl_chars = ''.join(chr(i) for i in range(32)) + chr(127)  # :U:
 nontoken_chars = separator_chars + ctl_chars
 
 # RFC 5987
@@ -306,7 +306,7 @@ token = Any(token_chars)[1:, ...]
 # and all the others are defined with Any.
 qdtext = AnyBut('"' + ctl_chars)
 
-char = Any(''.join(chr(i) for i in xrange(128)))  # ascii range: 0-127
+char = Any(''.join(chr(i) for i in range(128)))  # ascii range: 0-127  # :U:
 
 quoted_pair = Drop('\\') + char
 quoted_string = Drop('"') & (quoted_pair | qdtext)[:, ...] & Drop('"')
